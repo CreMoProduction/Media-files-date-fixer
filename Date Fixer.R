@@ -7,7 +7,6 @@ install.packages(setdiff(packages, rownames(installed.packages())))
 #-----------
 lapply(packages, require, character.only = TRUE)
 
-
 # Set the directory path
 dir_path <- choose.dir(default = "", caption = "Select folder")
 extesnion_list <- c("jpg","png","mp4", "mov", "OTHER")
@@ -17,10 +16,7 @@ if(extension=="OTHER") {
   extension <- readline(prompt="To continue, please enter file extension here manually: ")
 } else {}
 print(extension)
-# Get a list of files in the directory with the "mp4" extension
 file_list <- list.files(file.path(dir_path,"Init", fsep="\\"), pattern = paste("\\.",extension,"$", sep=""), full.names = TRUE)
-
-
 #выбираю параметр exif
 read_exif(file_list[1])
 sorted_exif_propties = sort(colnames(exif))
@@ -29,11 +25,7 @@ print(sorted_exif_propties)
 exif_property <- select.list(choices = c(sorted_exif_propties), 
                             title = "Select an exif property",
                             graphics = TRUE)
-
-#exif_property <- dlgInput("Please, select exif property number you want to run from the list above: ", )$res
-# If the input is numeric, print it
 cat("You selected:", exif_property)
-#exif_property= sorted_exif_propties[exif_property]
 
 i=1
 pb <- progress_bar$new(total = length(file_list))
